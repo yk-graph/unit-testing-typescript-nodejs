@@ -1,6 +1,39 @@
-import { getStringInfo, toUpperCase } from "../app/utils"
+import { getStringInfo, StringUtils, toUpperCase } from "../app/utils"
 
 describe("Utils test suite", () => {
+  describe.only("stringUtils test suite", () => {
+    let sut: StringUtils
+
+    beforeEach(() => {
+      sut = new StringUtils()
+    })
+
+    it("should return correct upper case", () => {
+      // Arrange
+      const expected = "HELLO WORLD"
+
+      // Act
+      const actual = sut.toUpperCase("hello world")
+
+      // Assert
+      expect(actual).toBe(expected)
+    })
+
+    it("should throw error for invalid argument - arrow function", () => {
+      // Assert
+      expect(() => sut.toUpperCase("")).toThrow("Invalid argument")
+    })
+
+    it("should throw error for invalid argument - try/catch", () => {
+      try {
+        sut.toUpperCase("")
+      } catch (error) {
+        expect(error).toBeInstanceOf(Error)
+        expect(error).toHaveProperty("message", "Invalid argument")
+      }
+    })
+  })
+
   it("should return upper case", () => {
     // Arrange
     const sut = toUpperCase
